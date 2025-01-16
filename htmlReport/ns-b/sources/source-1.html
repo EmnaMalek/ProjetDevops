@@ -1,0 +1,339 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ReservationService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">tn.esprit.spring.Services.Reservation</a>
+</div>
+
+<h1>Coverage Summary for Class: ReservationService (tn.esprit.spring.Services.Reservation)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ReservationService</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/70)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ReservationService$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/71)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package tn.esprit.spring.Services.Reservation;
+&nbsp;
+&nbsp;import lombok.AllArgsConstructor;
+&nbsp;import lombok.extern.slf4j.Slf4j;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;import tn.esprit.spring.DAO.Entities.Chambre;
+&nbsp;import tn.esprit.spring.DAO.Entities.Etudiant;
+&nbsp;import tn.esprit.spring.DAO.Entities.Foyer;
+&nbsp;import tn.esprit.spring.DAO.Entities.Reservation;
+&nbsp;import tn.esprit.spring.DAO.Repositories.ChambreRepository;
+&nbsp;import tn.esprit.spring.DAO.Repositories.EtudiantRepository;
+&nbsp;import tn.esprit.spring.DAO.Repositories.FoyerRepository;
+&nbsp;import tn.esprit.spring.DAO.Repositories.ReservationRepository;
+&nbsp;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Service
+<b class="nc">&nbsp;@AllArgsConstructor</b>
+<b class="nc">&nbsp;@Slf4j</b>
+&nbsp;public class ReservationService implements IReservationService {
+&nbsp;    ReservationRepository repo;
+&nbsp;    ChambreRepository chambreRepository;
+&nbsp;    EtudiantRepository etudiantRepository;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Reservation addOrUpdate(Reservation r) {
+<b class="nc">&nbsp;        return repo.save(r);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;Reservation&gt; findAll() {
+<b class="nc">&nbsp;        return repo.findAll();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Reservation findById(String id) {
+<b class="nc">&nbsp;        return repo.findById(id).get();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void deleteById(String id) {
+<b class="nc">&nbsp;        repo.deleteById(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void delete(Reservation r) {
+<b class="nc">&nbsp;        repo.delete(r);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public LocalDate getDateDebutAU() {
+&nbsp;        LocalDate dateDebutAU;
+<b class="nc">&nbsp;        int year = LocalDate.now().getYear() % 100;</b>
+<b class="nc">&nbsp;        if (LocalDate.now().getMonthValue() &lt;= 7) {</b>
+<b class="nc">&nbsp;            dateDebutAU = LocalDate.of(Integer.parseInt(&quot;20&quot; + (year - 1)), 9, 15);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            dateDebutAU = LocalDate.of(Integer.parseInt(&quot;20&quot; + year), 9, 15);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return dateDebutAU;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public LocalDate getDateFinAU() {
+&nbsp;        LocalDate dateFinAU;
+<b class="nc">&nbsp;        int year = LocalDate.now().getYear() % 100;</b>
+<b class="nc">&nbsp;        if (LocalDate.now().getMonthValue() &lt;= 7) {</b>
+<b class="nc">&nbsp;            dateFinAU = LocalDate.of(Integer.parseInt(&quot;20&quot; + year), 6, 30);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            dateFinAU = LocalDate.of(Integer.parseInt(&quot;20&quot; + (year + 1)), 6, 30);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return dateFinAU;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Reservation ajouterReservationEtAssignerAChambreEtAEtudiant
+&nbsp;            (Long numChambre, long cin) {
+&nbsp;        // Récupération de la chambre et de l&#39;étudiant
+<b class="nc">&nbsp;        Chambre chambre = chambreRepository.findByNumeroChambre(numChambre);</b>
+<b class="nc">&nbsp;        Etudiant etudiant = etudiantRepository.findByCin(cin);</b>
+&nbsp;
+&nbsp;        // Compter le nombre de réservations existantes
+<b class="nc">&nbsp;        int nombreReservations = chambreRepository.</b>
+&nbsp;                countReservationsByIdChambreAndReservationsAnneeUniversitaireBetween
+<b class="nc">&nbsp;                        (chambre.getIdChambre(), getDateDebutAU(), getDateFinAU());</b>
+&nbsp;
+&nbsp;        // Vérification de la capacité de la chambre
+<b class="nc">&nbsp;        boolean ajout = false;</b>
+<b class="nc">&nbsp;        int capaciteMaximale = switch (chambre.getTypeC()) {</b>
+<b class="nc">&nbsp;            case SIMPLE -&gt; 1;</b>
+<b class="nc">&nbsp;            case DOUBLE -&gt; 2;</b>
+<b class="nc">&nbsp;            case TRIPLE -&gt; 3;</b>
+&nbsp;        };
+&nbsp;
+<b class="nc">&nbsp;        if (nombreReservations &lt; capaciteMaximale) {</b>
+<b class="nc">&nbsp;            ajout = true;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            log.info(&quot;Chambre &quot; + chambre.getTypeC() + &quot; remplie !&quot;);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (ajout) {</b>
+&nbsp;            // Création de la réservation
+<b class="nc">&nbsp;            String idReservation = &quot;&quot; + getDateDebutAU().getYear() + &quot;/&quot; + getDateFinAU().getYear() + &quot;-&quot; + chambre.getBloc().getNomBloc() + &quot;-&quot;</b>
+<b class="nc">&nbsp;                    + chambre.getNumeroChambre() + &quot;-&quot; + etudiant.getCin();</b>
+&nbsp;
+<b class="nc">&nbsp;            Reservation reservation = Reservation.builder()</b>
+<b class="nc">&nbsp;                    .estValide(true)</b>
+<b class="nc">&nbsp;                    .anneeUniversitaire(LocalDate.now())</b>
+<b class="nc">&nbsp;                    .idReservation(idReservation)</b>
+<b class="nc">&nbsp;                    .build();</b>
+&nbsp;
+&nbsp;            // Affectation de l&#39;étudiant à la réservation
+<b class="nc">&nbsp;            reservation.getEtudiants().add(etudiant);</b>
+&nbsp;
+&nbsp;            // Sauvegarde de la réservation
+<b class="nc">&nbsp;            reservation = repo.save(reservation);</b>
+&nbsp;
+&nbsp;            // Affectation de la réservation à la chambre
+<b class="nc">&nbsp;            chambre.getReservations().add(reservation);</b>
+<b class="nc">&nbsp;            chambreRepository.save(chambre);</b>
+&nbsp;
+<b class="nc">&nbsp;            return reservation;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Retourner null ou lever une exception plutôt que de retourner une nouvelle réservation vide
+<b class="nc">&nbsp;        return null; // Ou vous pouvez lever une exception pour indiquer que l&#39;ajout a échoué</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public long getReservationParAnneeUniversitaire(LocalDate debutAnnee, LocalDate finAnnee) {
+<b class="nc">&nbsp;        return repo.countByAnneeUniversitaireBetween(debutAnnee, finAnnee);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String annulerReservation(long cinEtudiant) {
+<b class="nc">&nbsp;        Reservation r = repo.findByEtudiantsCinAndEstValide(cinEtudiant,</b>
+&nbsp;                true);
+<b class="nc">&nbsp;        Chambre c = chambreRepository.findByReservationsIdReservation</b>
+<b class="nc">&nbsp;                (r.getIdReservation());</b>
+<b class="nc">&nbsp;        c.getReservations().remove(r);</b>
+<b class="nc">&nbsp;        chambreRepository.save(c);</b>
+<b class="nc">&nbsp;        repo.delete(r);</b>
+<b class="nc">&nbsp;        return &quot;La réservation &quot; + r.getIdReservation()</b>
+&nbsp;                + &quot; est annulée avec succés&quot;;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void affectReservationAChambre(String idRes, long idChambre) {
+<b class="nc">&nbsp;        Reservation r = repo.findById(idRes).get();</b>
+<b class="nc">&nbsp;        Chambre c = chambreRepository.findById(idChambre).get();</b>
+&nbsp;        // Parent: Chambre , Child: Reservation
+&nbsp;        // On affecte le child au parent
+<b class="nc">&nbsp;        c.getReservations().add(r);</b>
+<b class="nc">&nbsp;        chambreRepository.save(c);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void deaffectReservationAChambre(String idRes, long idChambre) {
+<b class="nc">&nbsp;        Reservation r = repo.findById(idRes).get();</b>
+<b class="nc">&nbsp;        Chambre c = chambreRepository.findById(idChambre).get();</b>
+&nbsp;        // Parent: Chambre , Child: Reservation
+&nbsp;        // On affecte le child au parent
+<b class="nc">&nbsp;        c.getReservations().remove(r);</b>
+<b class="nc">&nbsp;        chambreRepository.save(c);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void annulerReservations() {
+&nbsp;        // Début &quot;récuperer l&#39;année universitaire actuelle&quot;
+&nbsp;        LocalDate dateDebutAU;
+&nbsp;        LocalDate dateFinAU;
+&nbsp;        int numReservation;
+<b class="nc">&nbsp;        int year = LocalDate.now().getYear() % 100;</b>
+<b class="nc">&nbsp;        if (LocalDate.now().getMonthValue() &lt;= 7) {</b>
+<b class="nc">&nbsp;            dateDebutAU = LocalDate.of(Integer.parseInt(&quot;20&quot; + (year - 1)), 9, 15);</b>
+<b class="nc">&nbsp;            dateFinAU = LocalDate.of(Integer.parseInt(&quot;20&quot; + year), 6, 30);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            dateDebutAU = LocalDate.of(Integer.parseInt(&quot;20&quot; + year), 9, 15);</b>
+<b class="nc">&nbsp;            dateFinAU = LocalDate.of(Integer.parseInt(&quot;20&quot; + (year + 1)), 6, 30);</b>
+&nbsp;        }
+&nbsp;        // Fin &quot;récuperer l&#39;année universitaire actuelle&quot;
+<b class="nc">&nbsp;        for (Reservation reservation : repo.findByEstValideAndAnneeUniversitaireBetween</b>
+<b class="nc">&nbsp;                (true, dateDebutAU, dateFinAU)) {</b>
+<b class="nc">&nbsp;            reservation.setEstValide(false);</b>
+<b class="nc">&nbsp;            repo.save(reservation);</b>
+<b class="nc">&nbsp;            log.info(&quot;La reservation &quot; + reservation.getIdReservation() + &quot; est annulée automatiquement&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-16 00:04</div>
+</div>
+</body>
+</html>

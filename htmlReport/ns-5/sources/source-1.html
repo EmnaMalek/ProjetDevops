@@ -1,0 +1,170 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BlocRestController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">tn.esprit.spring.RestControllers</a>
+</div>
+
+<h1>Coverage Summary for Class: BlocRestController (tn.esprit.spring.RestControllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BlocRestController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package tn.esprit.spring.RestControllers;
+&nbsp;
+&nbsp;import lombok.AllArgsConstructor;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;import tn.esprit.spring.DAO.Entities.Bloc;
+&nbsp;import tn.esprit.spring.Services.Bloc.IBlocService;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;bloc&quot;)
+<b class="nc">&nbsp;@AllArgsConstructor</b>
+&nbsp;public class BlocRestController {
+&nbsp;    IBlocService service;
+&nbsp;
+&nbsp;    @PostMapping(&quot;addOrUpdate&quot;)
+&nbsp;    Bloc addOrUpdate(@RequestBody Bloc b) {
+<b class="nc">&nbsp;        return service.addOrUpdate(b);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;findAll&quot;)
+&nbsp;    List&lt;Bloc&gt; findAll() {
+<b class="nc">&nbsp;        return service.findAll();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;findById&quot;)
+&nbsp;    Bloc findById(@RequestParam long id) {
+<b class="nc">&nbsp;        return service.findById(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @DeleteMapping(&quot;delete&quot;)
+&nbsp;    void delete(@RequestBody Bloc b) {
+<b class="nc">&nbsp;        service.delete(b);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @DeleteMapping(&quot;deleteById&quot;)
+&nbsp;    void deleteById(@RequestParam long id) {
+<b class="nc">&nbsp;        service.deleteById(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PutMapping(&quot;affecterChambresABloc&quot;)
+&nbsp;    Bloc affecterChambresABloc(@RequestBody List&lt;Long&gt; numChambre, @RequestParam String nomBloc) {
+<b class="nc">&nbsp;        return service.affecterChambresABloc(numChambre, nomBloc);</b>
+&nbsp;    }
+&nbsp;    // ...............?nomFoyer=....&amp;nomBloc=....
+&nbsp;    @PutMapping(&quot;affecterBlocAFoyer&quot;)
+&nbsp;    Bloc affecterBlocAFoyer(@RequestParam String nomBloc, @RequestParam String nomFoyer) {
+<b class="nc">&nbsp;        return service.affecterBlocAFoyer(nomBloc, nomFoyer);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // .............../Foyer des jasmins/Bloc G
+&nbsp;    @PutMapping(&quot;affecterBlocAFoyer2/{nomFoyer}/{nomBloc}&quot;)
+&nbsp;    Bloc affecterBlocAFoyer2(@PathVariable String nomBloc, @PathVariable String nomFoyer) {
+<b class="nc">&nbsp;        return service.affecterBlocAFoyer(nomBloc, nomFoyer);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PostMapping(&quot;ajouterBlocEtSesChambres&quot;)
+&nbsp;    Bloc ajouterBlocEtSesChambres(@RequestBody Bloc b) {
+<b class="nc">&nbsp;        return service.ajouterBlocEtSesChambres(b);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PostMapping(&quot;ajouterBlocEtAffecterAFoyer/{nomF}&quot;)
+&nbsp;    Bloc ajouterBlocEtAffecterAFoyer(@RequestBody Bloc b,@PathVariable String nomF) {
+<b class="nc">&nbsp;        return service.ajouterBlocEtAffecterAFoyer(b,nomF);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-16 00:04</div>
+</div>
+</body>
+</html>

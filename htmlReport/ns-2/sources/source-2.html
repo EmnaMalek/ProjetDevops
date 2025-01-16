@@ -1,0 +1,147 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > FoyerAspect4SIM2</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">tn.esprit.spring.AOP</a>
+</div>
+
+<h1>Coverage Summary for Class: FoyerAspect4SIM2 (tn.esprit.spring.AOP)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FoyerAspect4SIM2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package tn.esprit.spring.AOP;
+&nbsp;
+&nbsp;import lombok.extern.slf4j.Slf4j;
+&nbsp;import org.aspectj.lang.JoinPoint;
+&nbsp;import org.aspectj.lang.ProceedingJoinPoint;
+&nbsp;import org.aspectj.lang.annotation.*;
+&nbsp;import org.springframework.stereotype.Component;
+&nbsp;
+&nbsp;@Aspect // Pour considérer cette classe comme &quot;Aspect&quot;
+&nbsp;@Component // Pour considérer cette classe comme &quot;Bean Spring&quot;
+<b class="nc">&nbsp;@Slf4j</b>
+<b class="nc">&nbsp;public class FoyerAspect4SIM2 /* La classe: Aspect */  {</b>
+&nbsp;    // Les méthodes : Advices
+&nbsp;
+&nbsp;    @After(&quot;execution(* tn.esprit.spring.Services..*.*(..))&quot;)
+&nbsp;    public void afterAdvice(JoinPoint jp){
+<b class="nc">&nbsp;        log.info(&quot;ranni 5rajt mil méthode &quot;+jp.getSignature().getName());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // @AfterReturning()
+&nbsp;    // @AfterThrowing()
+&nbsp;
+&nbsp;    @Before(&quot;execution(* tn.esprit.spring.Services..*.*(..))&quot;)
+&nbsp;    public void beforeAdvice(JoinPoint jp){
+<b class="nc">&nbsp;        log.info(&quot;ranni d5alt lil méthode &quot;+jp.getSignature().getName());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Before(&quot;execution(* tn.esprit.spring.Services..*.ajouter*(..))&quot;)
+&nbsp;    public void beforeAdvice2(JoinPoint jp){
+<b class="nc">&nbsp;        log.info(&quot;Ranni méthode ajouter&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Around(&quot;execution(* tn.esprit.spring.Services..*.*(..))&quot;)
+&nbsp;    public Object profile(ProceedingJoinPoint pjp) throws Throwable
+&nbsp;    {
+<b class="nc">&nbsp;        long start = System.currentTimeMillis();</b>
+&nbsp;        //Object obj = pjp.proceed();
+<b class="nc">&nbsp;        long elapsedTime = System.currentTimeMillis() - start;</b>
+<b class="nc">&nbsp;        log.info(&quot;Method execution time: &quot; + elapsedTime + &quot; milliseconds.&quot;);</b>
+&nbsp;        //return obj;
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-16 00:04</div>
+</div>
+</body>
+</html>

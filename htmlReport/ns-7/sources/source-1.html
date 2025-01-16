@@ -1,0 +1,232 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BlocService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">tn.esprit.spring.Services.Bloc</a>
+</div>
+
+<h1>Coverage Summary for Class: BlocService (tn.esprit.spring.Services.Bloc)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BlocService</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/39)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package tn.esprit.spring.Services.Bloc;
+&nbsp;
+&nbsp;import lombok.AllArgsConstructor;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;import tn.esprit.spring.DAO.Entities.Bloc;
+&nbsp;import tn.esprit.spring.DAO.Entities.Chambre;
+&nbsp;import tn.esprit.spring.DAO.Entities.Foyer;
+&nbsp;import tn.esprit.spring.DAO.Repositories.BlocRepository;
+&nbsp;import tn.esprit.spring.DAO.Repositories.ChambreRepository;
+&nbsp;import tn.esprit.spring.DAO.Repositories.FoyerRepository;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Service
+<b class="nc">&nbsp;@AllArgsConstructor</b>
+&nbsp;public class BlocService implements IBlocService {
+&nbsp;    BlocRepository repo;
+&nbsp;    ChambreRepository chambreRepository;
+&nbsp;    BlocRepository blocRepository;
+&nbsp;    FoyerRepository foyerRepository;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Bloc addOrUpdate2(Bloc b) { //Cascade
+<b class="nc">&nbsp;        List&lt;Chambre&gt; chambres = b.getChambres();</b>
+<b class="nc">&nbsp;        for (Chambre c : chambres) {</b>
+<b class="nc">&nbsp;            c.setBloc(b);</b>
+<b class="nc">&nbsp;            chambreRepository.save(c);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return b;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Bloc addOrUpdate(Bloc b) {
+<b class="nc">&nbsp;        List&lt;Chambre&gt; chambres = b.getChambres();</b>
+<b class="nc">&nbsp;        b = repo.save(b);</b>
+<b class="nc">&nbsp;        for (Chambre chambre : chambres) {</b>
+<b class="nc">&nbsp;            chambre.setBloc(b);</b>
+<b class="nc">&nbsp;            chambreRepository.save(chambre);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return b;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;Bloc&gt; findAll() {
+<b class="nc">&nbsp;        return repo.findAll();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Bloc findById(long id) {
+<b class="nc">&nbsp;        return repo.findById(id).get();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void deleteById(long id) {
+<b class="nc">&nbsp;        Bloc b =repo.findById(id).get();</b>
+<b class="nc">&nbsp;        chambreRepository.deleteAll(b.getChambres());</b>
+<b class="nc">&nbsp;        repo.delete(b);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void delete(Bloc b) {
+<b class="nc">&nbsp;        chambreRepository.deleteAll(b.getChambres());</b>
+<b class="nc">&nbsp;        repo.delete(b);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Bloc affecterChambresABloc(List&lt;Long&gt; numChambre, String nomBloc) {
+&nbsp;        //1
+<b class="nc">&nbsp;        Bloc b = repo.findByNomBloc(nomBloc);</b>
+<b class="nc">&nbsp;        List&lt;Chambre&gt; chambres = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        for (Long nu : numChambre) {</b>
+<b class="nc">&nbsp;            Chambre chambre = chambreRepository.findByNumeroChambre(nu);</b>
+<b class="nc">&nbsp;            chambres.add(chambre);</b>
+&nbsp;        }
+&nbsp;        // Keyword (2ème méthode)
+&nbsp;        //2 Parent==&gt;Chambre  Child==&gt; Bloc
+<b class="nc">&nbsp;        for (Chambre cha : chambres) {</b>
+&nbsp;            //3 On affecte le child au parent
+<b class="nc">&nbsp;            cha.setBloc(b);</b>
+&nbsp;            //4 save du parent
+<b class="nc">&nbsp;            chambreRepository.save(cha);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return b;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Bloc affecterBlocAFoyer(String nomBloc, String nomFoyer) {
+<b class="nc">&nbsp;        Bloc b = blocRepository.findByNomBloc(nomBloc); //Parent</b>
+<b class="nc">&nbsp;        Foyer f = foyerRepository.findByNomFoyer(nomFoyer); //Child</b>
+&nbsp;        //On affecte le child au parent
+<b class="nc">&nbsp;        b.setFoyer(f);</b>
+<b class="nc">&nbsp;        return blocRepository.save(b);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Bloc ajouterBlocEtSesChambres(Bloc b) {
+&nbsp;        // Activer l&#39;option cascade au niveau parent
+<b class="nc">&nbsp;        for (Chambre c : b.getChambres()) {</b>
+<b class="nc">&nbsp;            c.setBloc(b);</b>
+<b class="nc">&nbsp;            chambreRepository.save(c);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return b;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Bloc ajouterBlocEtAffecterAFoyer(Bloc b, String nomFoyer) {
+&nbsp;        // Foyer: child , Bloc: Parent
+<b class="nc">&nbsp;        Foyer f= foyerRepository.findByNomFoyer(nomFoyer);</b>
+<b class="nc">&nbsp;        b.setFoyer(f);</b>
+<b class="nc">&nbsp;        return blocRepository.save(b);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-16 00:04</div>
+</div>
+</body>
+</html>

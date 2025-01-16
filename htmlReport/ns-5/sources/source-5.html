@@ -1,0 +1,169 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ReservationRestController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">tn.esprit.spring.RestControllers</a>
+</div>
+
+<h1>Coverage Summary for Class: ReservationRestController (tn.esprit.spring.RestControllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ReservationRestController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package tn.esprit.spring.RestControllers;
+&nbsp;
+&nbsp;import lombok.AllArgsConstructor;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;import tn.esprit.spring.DAO.Entities.Reservation;
+&nbsp;import tn.esprit.spring.DAO.Entities.Universite;
+&nbsp;import tn.esprit.spring.Services.Reservation.IReservationService;
+&nbsp;import tn.esprit.spring.Services.Universite.IUniversiteService;
+&nbsp;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;reservation&quot;)
+<b class="nc">&nbsp;@AllArgsConstructor</b>
+&nbsp;public class ReservationRestController {
+&nbsp;    IReservationService service;
+&nbsp;
+&nbsp;    @PostMapping(&quot;addOrUpdate&quot;)
+&nbsp;    Reservation addOrUpdate(@RequestBody Reservation r) {
+<b class="nc">&nbsp;        return service.addOrUpdate(r);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;findAll&quot;)
+&nbsp;    List&lt;Reservation&gt; findAll() {
+<b class="nc">&nbsp;        return service.findAll();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // ......... ?id=1
+&nbsp;    @GetMapping(&quot;findById&quot;)
+&nbsp;    Reservation findById(@RequestParam String id) {
+<b class="nc">&nbsp;        return service.findById(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // ......../1
+&nbsp;    @DeleteMapping(&quot;deleteById/{id}&quot;)
+&nbsp;    void deleteById(@PathVariable String id) {
+<b class="nc">&nbsp;        service.deleteById(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    @DeleteMapping(&quot;delete&quot;)
+&nbsp;    void delete(@RequestBody Reservation r) {
+<b class="nc">&nbsp;        service.delete(r);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    @PostMapping(&quot;ajouterReservationEtAssignerAChambreEtAEtudiant&quot;)
+&nbsp;    Reservation ajouterReservationEtAssignerAChambreEtAEtudiant(@RequestParam Long numChambre, @RequestParam long cin) {
+<b class="nc">&nbsp;        return service.ajouterReservationEtAssignerAChambreEtAEtudiant(numChambre, cin);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;getReservationParAnneeUniversitaire&quot;)
+&nbsp;    long getReservationParAnneeUniversitaire(@RequestParam LocalDate debutAnnee, @RequestParam LocalDate finAnnee) {
+<b class="nc">&nbsp;        return service.getReservationParAnneeUniversitaire(debutAnnee, finAnnee);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @DeleteMapping(&quot;annulerReservation&quot;)
+&nbsp;    String annulerReservation(@RequestParam long cinEtudiant) {
+<b class="nc">&nbsp;        return service.annulerReservation(cinEtudiant);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-16 00:04</div>
+</div>
+</body>
+</html>

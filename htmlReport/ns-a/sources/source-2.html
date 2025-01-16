@@ -1,0 +1,99 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > IFoyerService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">tn.esprit.spring.Services.Foyer</a>
+</div>
+
+<h1>Coverage Summary for Class: IFoyerService (tn.esprit.spring.Services.Foyer)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">IFoyerService</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package tn.esprit.spring.Services.Foyer;
+&nbsp;
+&nbsp;import tn.esprit.spring.DAO.Entities.Etudiant;
+&nbsp;import tn.esprit.spring.DAO.Entities.Foyer;
+&nbsp;import tn.esprit.spring.DAO.Entities.Reservation;
+&nbsp;import tn.esprit.spring.DAO.Entities.Universite;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface IFoyerService {
+&nbsp;    Foyer addOrUpdate(Foyer f);
+&nbsp;
+&nbsp;    List&lt;Foyer&gt; findAll();
+&nbsp;
+&nbsp;    Foyer findById(long id);
+&nbsp;
+&nbsp;    void deleteById(long id);
+&nbsp;
+&nbsp;    void delete(Foyer f);
+&nbsp;
+&nbsp;    Universite affecterFoyerAUniversite(long idFoyer, String nomUniversite);
+&nbsp;
+&nbsp;    Universite desaffecterFoyerAUniversite(long idUniversite);
+&nbsp;
+&nbsp;    Foyer ajouterFoyerEtAffecterAUniversite (Foyer foyer, long idUniversite); // Universite: Parent / Foyer:Child
+&nbsp;    Foyer ajoutFoyerEtBlocs(Foyer foyer);
+&nbsp;
+&nbsp;    Universite affecterFoyerAUniversite(long idF, long idU);
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-16 00:04</div>
+</div>
+</body>
+</html>

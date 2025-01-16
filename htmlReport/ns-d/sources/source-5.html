@@ -1,0 +1,161 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > EtudiantRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">tn.esprit.spring.DAO.Repositories</a>
+</div>
+
+<h1>Coverage Summary for Class: EtudiantRepository (tn.esprit.spring.DAO.Repositories)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">EtudiantRepository</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package tn.esprit.spring.DAO.Repositories;
+&nbsp;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import org.springframework.data.jpa.repository.Modifying;
+&nbsp;import org.springframework.data.jpa.repository.Query;
+&nbsp;import org.springframework.data.repository.query.Param;
+&nbsp;import tn.esprit.spring.DAO.Entities.Etudiant;
+&nbsp;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface EtudiantRepository extends JpaRepository&lt;Etudiant, Long&gt; {
+&nbsp;
+&nbsp;    // Afficher la liste des étudiants avec le nom passé en paramétre
+&nbsp;    List&lt;Etudiant&gt; findByNomEt(String nom);
+&nbsp;    // JPQL (Les noms des entités, les nom des attributs)
+&nbsp;    @Query(&quot;select e from Etudiant e where e.nomEt=?1&quot;)
+&nbsp;    List&lt;Etudiant&gt; selectJPQL(String nom);
+&nbsp;    //SQL (Les noms des tables, les nom des colonnes)
+&nbsp;    @Query(value = &quot;SELECT * FROM t_etudiant WHERE nom_et=:nom&quot;,nativeQuery = true)
+&nbsp;    List&lt;Etudiant&gt; selectSQL(@Param(&quot;nom&quot;) String nom);
+&nbsp;
+&nbsp;    // Afficher la liste des étudiants avec le nom et le prenom passé en paramétre
+&nbsp;    List&lt;Etudiant&gt; findByNomEtAndPrenomEt(String nom, String prenom);
+&nbsp;    // JPQL (Les noms des entités, les nom des attributs)
+&nbsp;    @Query(&quot;select e from Etudiant e where e.nomEt=:nom and e.prenomEt=:prenom&quot;)
+&nbsp;    List&lt;Etudiant&gt; select2JPQL(@Param(&quot;nom&quot;) String nom,@Param(&quot;prenom&quot;) String prenom);
+&nbsp;    //SQL (Les noms des tables, les nom des colonnes)
+&nbsp;    @Query(value = &quot;SELECT * FROM t_etudiant WHERE nom_et=?2 AND prenom_et=?1&quot;,nativeQuery = true)
+&nbsp;    List&lt;Etudiant&gt; select2SQL(String prenom, String nom);
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    Etudiant getByNomEtAndPrenomEt(String nom, String prenom);
+&nbsp;
+&nbsp;
+&nbsp;    // select e from Etudiant e where e.nomEt = ... Or e.prenomEt=...
+&nbsp;    List&lt;Etudiant&gt; findByNomEtOrPrenomEt(String nom, String prenom);
+&nbsp;
+&nbsp;    // select e from Etudiant e where e.idEtudiant &gt; ...
+&nbsp;    List&lt;Etudiant&gt; findByIdEtudiantGreaterThan(long min);
+&nbsp;
+&nbsp;    // select e from Etudiant e where e.idEtudiant &lt; ...
+&nbsp;    List&lt;Etudiant&gt; findByIdEtudiantLessThan(long min);
+&nbsp;
+&nbsp;    // select e from Etudiant e where e.dateNaissance betwenn ... and ...
+&nbsp;    List&lt;Etudiant&gt; getByDateNaissanceBetween(LocalDate d1, LocalDate d2);
+&nbsp;
+&nbsp;    // select e from Etudiant e where e.nomEt like ...
+&nbsp;    List&lt;Etudiant&gt; getByNomEtLike(String nomEt);
+&nbsp;
+&nbsp;    List&lt;Etudiant&gt; getByNomEtContaining(String nomEt);
+&nbsp;
+&nbsp;    List&lt;Etudiant&gt; getByNomEtContains(String nomEt);
+&nbsp;
+&nbsp;    List&lt;Etudiant&gt; getByNomEtIgnoreCase(String nom);
+&nbsp;
+&nbsp;    List&lt;Etudiant&gt; getByNomEtNotNull();
+&nbsp;
+&nbsp;    //select * from Etudiant where cin=...
+&nbsp;    Etudiant findByCin(long cin);
+&nbsp;
+&nbsp;    // select * from Etudiant where nomEt like ...
+&nbsp;    List&lt;Etudiant&gt; findByNomEtLike(String nom);
+&nbsp;
+&nbsp;    List&lt;Etudiant&gt; findByNomEtContains(String nom);
+&nbsp;
+&nbsp;    List&lt;Etudiant&gt; findByNomEtContaining(String nom);
+&nbsp;
+&nbsp;    @Query(value = &quot;select e from t_etudiant e &quot; +
+&nbsp;            &quot;           join t_reservation_etudiants re on e.id_etudiant=re.etudiants_id_etudiant&quot; +
+&nbsp;            &quot;           join t_reservation r on r.id_reservation= re.reservations_id_reservation&quot; +
+&nbsp;            &quot;           where r.est_valide=?1 &quot;, nativeQuery = true)
+&nbsp;    List&lt;Etudiant&gt; e5erMethodeSQL(boolean estValide);
+&nbsp;
+&nbsp;    @Query(&quot;update Etudiant e set e.ecole =?1 where e.idEtudiant&lt;?2 &quot;)
+&nbsp;    @Modifying
+&nbsp;    void update(String nomE, long id);
+&nbsp;
+&nbsp;    @Query(value = &quot;update t_etudiant set ecole=:nom where id_etudiant &lt;:id &quot;, nativeQuery = true)
+&nbsp;    @Modifying
+&nbsp;    void updatesql(@Param(&quot;nom&quot;) String nom, @Param(&quot;id&quot;) long id);
+&nbsp;
+&nbsp;}
+&nbsp;
+&nbsp;
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-16 00:04</div>
+</div>
+</body>
+</html>

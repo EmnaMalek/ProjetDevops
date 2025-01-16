@@ -1,0 +1,137 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ChambreRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">tn.esprit.spring.DAO.Repositories</a>
+</div>
+
+<h1>Coverage Summary for Class: ChambreRepository (tn.esprit.spring.DAO.Repositories)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">ChambreRepository$MockitoMock$g39fulfW</td>
+  </tr>
+  <tr>
+    <td class="name">ChambreRepository$MockitoMock$g39fulfW$auxiliary$7WszVxW9</td>
+  </tr>
+  <tr>
+    <td class="name">ChambreRepository$MockitoMock$g39fulfW$auxiliary$Q9STuuB6</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package tn.esprit.spring.DAO.Repositories;
+&nbsp;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import org.springframework.data.jpa.repository.Query;
+&nbsp;import org.springframework.data.repository.query.Param;
+&nbsp;import tn.esprit.spring.DAO.Entities.Bloc;
+&nbsp;import tn.esprit.spring.DAO.Entities.Chambre;
+&nbsp;import tn.esprit.spring.DAO.Entities.TypeChambre;
+&nbsp;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface ChambreRepository extends JpaRepository&lt;Chambre, Long&gt; {
+&nbsp;    Chambre findByNumeroChambre(long num);
+&nbsp;
+&nbsp;
+&nbsp;    int countByTypeCAndBlocIdBloc(TypeChambre typeChambre, long idBloc);
+&nbsp;
+&nbsp;    //********************* Ajouter Reservation *********************
+&nbsp;    //SQL
+&nbsp;    @Query(value = &quot;select count(*) from t_chambre c &quot; +
+&nbsp;            &quot;join t_chambre_reservations cr on c.id_chambre=cr.chambre_id_chambre &quot; +
+&nbsp;            &quot;join t_reservation r on cr.reservations_id_reservation=r.id_reservation &quot; +
+&nbsp;            &quot;where c.id_chambre=?1 and r.annee_universitaire between ?2 and ?3&quot;, nativeQuery = true)
+&nbsp;    int listerReservationPourUneChambre(long idChambre, LocalDate dateDebutAU, LocalDate dateFinAU);
+&nbsp;
+&nbsp;    //Keyword
+&nbsp;    int countReservationsByIdChambreAndReservationsAnneeUniversitaireBetween(long chambreId, LocalDate dateDebutAU, LocalDate dateFinAU);
+&nbsp;
+&nbsp;    //*****************************************************************
+&nbsp;    Chambre findByReservationsIdReservation(String idReservation);
+&nbsp;
+&nbsp;    long count();
+&nbsp;
+&nbsp;    long countChambreByTypeC(TypeChambre typeChambre);
+&nbsp;
+&nbsp;    long countReservationsByIdChambreAndReservationsEstValideAndReservationsAnneeUniversitaireBetween(long idChambre, boolean estValide, LocalDate dateDebut, LocalDate dateFin);
+&nbsp;//    List&lt;Chambre&gt; findAllByNumeroChambre(List&lt;Long&gt; num);
+&nbsp;
+&nbsp;    List&lt;Chambre&gt; findByBlocNomBloc(String nomB);
+&nbsp;
+&nbsp;    @Query(&quot;select c from Chambre c where c.bloc.nomBloc=?1&quot;)
+&nbsp;    List&lt;Chambre&gt; getChambresParNomBlocJPQL(String nomBloc);
+&nbsp;
+&nbsp;    @Query(value = &quot;SELECT c.* FROM t_chambre c JOIN t_bloc b &quot; +
+&nbsp;            &quot;ON c.bloc_id_bloc=b.id_bloc WHERE b.nom_bloc=:nom&quot;
+&nbsp;            , nativeQuery = true)
+&nbsp;    List&lt;Chambre&gt; getChambresParNomBlocSQL(@Param(value = &quot;nom&quot;) String nomBloc);
+&nbsp;
+&nbsp;
+&nbsp;    @Query(&quot;select count(c) from Chambre c where c.typeC=?1 and c.bloc.idBloc=?2&quot;)
+&nbsp;    long select(TypeChambre typeChambre, long idBloc);
+&nbsp;
+&nbsp;    @Query(value = &quot;select count(c) from t_chambre c join t_bloc b &quot; +
+&nbsp;            &quot;on b.id_bloc=c.bloc_id_bloc  where c.type_c=?1 and b.id_bloc=?2&quot;
+&nbsp;            , nativeQuery = true)
+&nbsp;    long selectSQL(TypeChambre typeChambre, long idBloc);
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-16 00:04</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,196 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BlocRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">tn.esprit.spring.DAO.Repositories</a>
+</div>
+
+<h1>Coverage Summary for Class: BlocRepository (tn.esprit.spring.DAO.Repositories)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">BlocRepository$MockitoMock$o4iWwKXx</td>
+  </tr>
+  <tr>
+    <td class="name">BlocRepository$MockitoMock$o4iWwKXx$auxiliary$0bcIrpn9</td>
+  </tr>
+  <tr>
+    <td class="name">BlocRepository$MockitoMock$o4iWwKXx$auxiliary$rR8izXCA</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package tn.esprit.spring.DAO.Repositories;
+&nbsp;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import org.springframework.data.jpa.repository.Modifying;
+&nbsp;import org.springframework.data.jpa.repository.Query;
+&nbsp;import org.springframework.data.repository.query.Param;
+&nbsp;import tn.esprit.spring.DAO.Entities.Bloc;
+&nbsp;import tn.esprit.spring.DAO.Entities.TypeChambre;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface BlocRepository extends JpaRepository&lt;Bloc, Long&gt; {
+&nbsp;
+&nbsp;    @Query(&quot;select b from Bloc b where b.nomBloc=?1&quot;)
+&nbsp;    Bloc selectByNomBJPQL1(String nom);
+&nbsp;
+&nbsp;    @Query(&quot;select b from Bloc b where b.nomBloc=:nom&quot;)
+&nbsp;    Bloc selectByNomBJPQL2(@Param(&quot;nom&quot;) String nom);
+&nbsp;
+&nbsp;    @Query(value = &quot;SELECT * FROM t_bloc WHERE nom_bloc=?1  &quot;, nativeQuery = true)
+&nbsp;    Bloc selectByNomBSQL1(String nom);
+&nbsp;
+&nbsp;    @Query(value = &quot;SELECT * FROM t_bloc WHERE nom_bloc=:nom  &quot;, nativeQuery = true)
+&nbsp;    Bloc selectByNomBSQL2(@Param(&quot;nom&quot;) String nom);
+&nbsp;
+&nbsp;    @Modifying
+&nbsp;    @Query(&quot;update Bloc b set b.nomBloc=?1 where b.capaciteBloc&lt;10&quot;)
+&nbsp;    void updateBlocJPQL(String nom);
+&nbsp;
+&nbsp;    @Modifying
+&nbsp;    @Query(value = &quot;update t_bloc set nom_bloc=?1 where capacite_bloc&lt;10&quot;, nativeQuery = true)
+&nbsp;    void updateBlocSQL(String nom);
+&nbsp;
+&nbsp;    // Récupérer les blocs qui ont des chambres avec un typeChambre donné
+&nbsp;    // Bloc (Child) 1--* Chambre (Parent-FK)
+&nbsp;    @Query(&quot;select b from Bloc b join Chambre c on c.bloc.idBloc=b.idBloc  where c.typeC=?1&quot;)
+&nbsp;    List&lt;Bloc&gt; selectBlocsByTypeChambreJPQL(TypeChambre typeChambre);
+&nbsp;
+&nbsp;
+&nbsp;    // 1- Recherche par nomBloc
+&nbsp;    List&lt;Bloc&gt; getByNomBloc(String nom);
+&nbsp;
+&nbsp;    Bloc findByNomBloc(String nom);
+&nbsp;
+&nbsp;    // 2- Recherche par capaciteBloc
+&nbsp;    List&lt;Bloc&gt; getByCapaciteBloc(long cap);
+&nbsp;
+&nbsp;    Bloc findByCapaciteBloc(long cap);
+&nbsp;
+&nbsp;    // 3- Recherche par nomBloc et capaciteBloc
+&nbsp;    List&lt;Bloc&gt; getByNomBlocAndCapaciteBloc(String nomB, long cap);
+&nbsp;
+&nbsp;    // 4- Recherche par nomBloc en ignorant la casse
+&nbsp;    List&lt;Bloc&gt; findByNomBlocIgnoreCase(String nomB);
+&nbsp;
+&nbsp;    // 5- Recherche par capaciteBloc supérieure à une valeur donnée
+&nbsp;    List&lt;Bloc&gt; findByCapaciteBlocGreaterThan(long cap);
+&nbsp;
+&nbsp;    // 6- Recherche par nomBloc contenant une sous-chaîne
+&nbsp;    List&lt;Bloc&gt; findByNomBlocLike(String nom);
+&nbsp;
+&nbsp;    // 7- Tri par nomBloc par ordre alphabétique
+&nbsp;    //List&lt;Bloc&gt; findByNomBlocOrderBy(String nomB);
+&nbsp;
+&nbsp;
+&nbsp;    // 8- Recherche par nomBloc ou capaciteBloc
+&nbsp;    List&lt;Bloc&gt; getByNomBlocOrCapaciteBloc(String nomB, long cap);
+&nbsp;
+&nbsp;    // 9- Recherche des blocs d&#39;un foyer spécifique
+&nbsp;    List&lt;Bloc&gt; findByFoyerIdFoyer(long idFoyer);
+&nbsp;
+&nbsp;    @Query(&quot;select b from Bloc b where b.foyer.idFoyer= ?1&quot;)
+&nbsp;    List&lt;Bloc&gt; findByFoyerIdFoyerJPQL(long idFoyer);
+&nbsp;
+&nbsp;    // 10- Recherche des blocs pour un foyer d&#39;une université donnée
+&nbsp;    List&lt;Bloc&gt; findByFoyerUniversiteIdUniversite(long idUniversite);
+&nbsp;
+&nbsp;    @Query(&quot;select b from Bloc b where b.foyer.universite.idUniversite=?1&quot;)
+&nbsp;    List&lt;Bloc&gt; findByFoyerUniversiteIdUniversiteJPQL(long idUniversite);
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    //9- Recherche des blocs d&#39;un foyer spécifique
+&nbsp;    @Query(&quot;select b from Bloc b where b.foyer.idFoyer=?1 &quot;)
+&nbsp;    List&lt;Bloc&gt; req9JPQL(long idF);
+&nbsp;    @Query(value = &quot;SELECT b.* FROM t_bloc b JOIN t_foyer &quot; +
+&nbsp;            &quot;f ON f.id_foyer= b.foyer_id_foyer  WHERE f.id_foyer=?1&quot;, nativeQuery = true)
+&nbsp;    List&lt;Bloc&gt; req9SQL(long idF);
+&nbsp;
+&nbsp;    // 10- Recherche des blocs pour un foyer d&#39;une université donnée
+&nbsp;    @Query(&quot;select b from Bloc b where b.foyer.universite.idUniversite=?1 &quot;)
+&nbsp;    List&lt;Bloc&gt; req10JPQL(long idU);
+&nbsp;    @Query(value = &quot;SELECT * FROM t_bloc b JOIN t_foyer f &quot; +
+&nbsp;            &quot;ON f.id_foyer= b.foyer_id_foyer JOIN t_universite u &quot; +
+&nbsp;            &quot;ON u.foyer_id_foyer=f.id_foyer WHERE u.id_universite=?1;&quot;
+&nbsp;            , nativeQuery = true)
+&nbsp;    List&lt;Bloc&gt; req10SQL(long idU);
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-01-16 00:04</div>
+</div>
+</body>
+</html>
